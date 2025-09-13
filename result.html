@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang='vi'>
+<head>
+<meta charset='utf-8'/>
+<meta name='viewport' content='width=device-width,initial-scale=1'/>
+<title>KẾT QUẢ KIỂM TRA QUÂN SỰ NĂM 2025</title>
+<style>
+body{font-family:Arial, sans-serif;max-width:1100px;margin:12px auto;padding:12px;}
+.header{background:gold;padding:18px;text-align:left;color:darkred;font-size:26px;font-weight:800;display:flex;align-items:center;gap:16px;}
+.header img{height:64px;}
+.summary-bar{background:gold;padding:12px;border-radius:6px;margin-top:12px;font-weight:700;}
+.detail{margin-top:12px;border-bottom:1px solid #eee;padding:12px 0;}
+.qtitle{font-weight:800;margin-bottom:6px;}
+.correct{color:green;font-weight:800;}
+.wrong{color:red;font-weight:800;}
+.btn{margin-top:12px;padding:8px 14px;font-size:16px;border-radius:6px;border:none;background:#0b5ed7;color:#fff;}
+.info-box{margin-top:8px;padding:8px;background:#f7f7f7;border-radius:6px;}
+</style>
+</head>
+<body>
+<div class='header'><img src='logo.png' alt='Logo'><div>KẾT QUẢ KIỂM TRA QUÂN SỰ NĂM 2025</div></div>
+
+<div id='candidateInfo' class='info-box'></div>
+<div id='scoreBar' class='summary-bar'></div>
+<div id='details'></div>
+
+<div style='margin-top:12px'><button class='btn' id='retryBtn'>Làm lại 50 câu mới</button></div>
+
+<script>
+function showResults(){ var resRaw=localStorage.getItem('latestQuizResult'); var qsRaw=localStorage.getItem('latestQuizQuestions'); if(!resRaw || !qsRaw){ document.getElementById('details').innerHTML = '<p>Không tìm thấy kết quả. Vui lòng làm bài rồi nộp.</p>'; return; } var results=JSON.parse(resRaw); var questions=JSON.parse(qsRaw); var fullname=results.meta.fullname||''; var unit=results.meta.unit||''; var total=results.meta.total||questions.length; document.getElementById('candidateInfo').innerHTML = '<strong>Họ và tên:</strong> '+fullname+'<br><strong>Đơn vị:</strong> '+unit; var correctCount=0; var detailsHtml=''; for(var i=0;i<questions.length;i++){ var qnum=i+1; var q=questions[i]; var userAns=results.answers[qnum]||''; var correct=q.correct||''; var isCorrect = userAns && correct && (userAns===correct); if(isCorrect) correctCount++; detailsHtml += "<div class='detail'>"; detailsHtml += "<div class='qtitle'>Câu "+qnum+": "+q.question+"</div>"; var corrOpt = (q.options||[]).find(function(o){return o.label===correct;}); var corrText = corrOpt? (corrOpt.label.toUpperCase()+'. '+corrOpt.text) : '---'; detailsHtml += "<div><span class='correct'>Đáp án đúng: "+corrText+"</span></div>"; var userText='—'; if(userAns){ var uOpt=(q.options||[]).find(function(o){return o.label===userAns;}); userText = uOpt? (uOpt.label.toUpperCase()+'. '+uOpt.text) : userAns; } if(isCorrect){ detailsHtml += "<div><span style='color:green;font-weight:700'>Đáp án của bạn: "+userText+"</span></div>"; } else { detailsHtml += "<div><span style='color:red;font-weight:700'>Đáp án của bạn: "+userText+"</span></div>"; } detailsHtml += "</div>"; } var perc = Math.round((correctCount/total)*10000)/100; document.getElementById('scoreBar').innerText = 'Số câu trả lời đúng: '+correctCount+' / '+total+'   ('+perc+'%)'; document.getElementById('details').innerHTML = detailsHtml; }
+
+document.getElementById('retryBtn').addEventListener('click', function(){ localStorage.removeItem('latestQuizResult'); localStorage.removeItem('latestQuizQuestions'); window.location.href='quiz_50_auto.html'; });
+
+showResults();
+</script>
+</body>
+</html>
