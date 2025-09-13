@@ -20,6 +20,10 @@ button{margin-top:12px;padding:10px 16px;font-size:16px;background:#0b5ed7;color
 </head>
 <body>
 <div class='header'><img src='logo.png' alt='Logo'><div>KIỂM TRA QUÂN SỰ NĂM 2025</div></div>
+<form id="quizForm"></form>
+<div id="timer" style="font-size:20px;font-weight:bold;color:red;text-align:right;margin:10px;">
+  Thời gian còn lại: 30:00
+</div>
 
 <div style='margin-top:12px;'>
   <div class='info'>
@@ -30,7 +34,7 @@ button{margin-top:12px;padding:10px 16px;font-size:16px;background:#0b5ed7;color
 
   <div id='quizArea'></div>
   <div style='margin-top:12px'>
-    <button id='submitBtn'>Nộp & Chấm</button>
+    <button id='submitBtn' form='quizForm'>Nộp & Chấm</button>
   </div>
   <div class='footer-note'>Mỗi lần quay lại trang sẽ sinh một bộ 50 câu ngẫu nhiên khác. Giữ nguyên thứ tự đáp án A,B,C,D như file gốc.</div>
 </div>
@@ -49,6 +53,17 @@ function init(){ var qs=pick50(); renderQuiz(qs); }
 document.getElementById('regenBtn').addEventListener('click', function(){ init(); window.scrollTo({top:0,behavior:'smooth'}); });
 
 document.getElementById('submitBtn').addEventListener('click', function(){ var fullname=document.getElementById('fullname').value.trim(); var unit=document.getElementById('unit').value.trim(); if(!fullname || !unit){ alert('Vui lòng nhập Họ và tên và Đơn vị trước khi nộp.'); return; } var questions=JSON.parse(localStorage.getItem('currentQuizQuestions')||'[]'); var total=questions.length; var results={ meta:{ fullname:fullname, unit:unit, total: total }, answers: {} }; for(var i=1;i<=total;i++){ var sel=document.querySelector('input[name="q'+i+'"]:checked'); results.answers[i]= sel? sel.value : ''; } localStorage.setItem('latestQuizResult', JSON.stringify(results)); localStorage.setItem('latestQuizQuestions', JSON.stringify(questions)); window.location.href='result.html'; });
+const form = document.getElementById("quizForm");
+
+questions.forEach((q, i) => {
+  const div = document.createElement("div");
+  div.classList.add("question");
+  div.innerHTML = `<p><b>Câu ${i+1}:</b> ${q.question}</p>` +
+    q.options.map(o =>
+      `<label><input type="radio" name="q${i+1}" value="${o.label}"> ${o.label.toUpperCase()}. ${o.text}</label><br>`
+    ).join("");
+  form.appendChild(div);
+});
 
 // initialize
 init();
