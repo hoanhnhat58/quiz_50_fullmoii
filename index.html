@@ -124,37 +124,22 @@ function renderQuestions(questions, showAnswers = false) {
 // Ôn tập: hiện toàn bộ 150 câu + đáp án
 function startPractice() {
   document.getElementById("quiz-container").innerHTML = ""; 
-  renderQuestions(ALL_QUESTIONS, true);
+  renderQuestions(ALL_QUESTIONS, true); // ✅ hiển thị 150 câu + đáp án
 }
 
-// Thi thử: random 50 câu, không hiện đáp án
-//function startExam() {
-  //function startExam() {
-  // Ẩn phần ôn tập trước đó (nếu có)
-  //document.getElementById("quiz-container").innerHTML = ""; 
-
-  // Random 50 câu
-  //const shuffled = [...ALL_QUESTIONS].sort(() => 0.5 - Math.random());
-  //const selected = shuffled.slice(0, 50);
-
-  // Hiển thị 50 câu (không có đáp án)
-	//renderQuiz(selected);
-  //renderQuestions(selected, false);
-//}
-
-//}
 // Thi thử: random 50 câu, có ô chọn đáp án
 function startExam() {
   document.getElementById("quiz-container").innerHTML = ""; 
   const shuffled = [...ALL_QUESTIONS].sort(() => 0.5 - Math.random());
   const selected = shuffled.slice(0, 50);
-  renderQuiz(selected);  // ✅ dùng renderQuiz, sẽ có A B C D dạng radio
+  renderQuiz(selected); // ✅ hiển thị dạng radio để chọn đáp án
 }
 
 // Quay lại menu chính (ẩn hết nội dung)
 function goHome() {
   document.getElementById("quiz-container").innerHTML = "";
 }
+
 
 // initialize
 //init();
