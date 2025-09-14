@@ -30,7 +30,7 @@ button{margin-top:12px;padding:10px 16px;font-size:16px;background:#0b5ed7;color
   <div class='info'>
     <div><input id='fullname' class='input' placeholder='Họ và tên (bắt buộc)'></div>
     <div><input id='unit' class='input' placeholder='Đơn vị (bắt buộc)'></div>
-    <div style='margin-left:auto'><button id='regenBtn' type='button'style='display:none;'>Sinh 50 câu mới</button></div>
+    <div style="margin-left:auto"><button id='regenBtn' type='button' style='display:none;'>Sinh 50 câu mới</button></div>
   </div>
 <style>
   .menu {
@@ -139,7 +139,11 @@ document.getElementById("regenBtn").style.display = "inline-block";
 
 // Quay lại menu chính (ẩn hết nội dung)
 function goHome() {
-  document.getElementById("quiz-container").innerHTML = "";
+document.getElementById("quiz-container").innerHTML = "";
+  document.getElementById("submitBtn").style.display = "none";  // ẩn nút nộp
+  localStorage.removeItem('currentQuizQuestions');              // xoá đề thi đang lưu
+  localStorage.removeItem('latestQuizResult');                  // xoá kết quả nếu có
+  localStorage.removeItem('latestQuizQuestions');
 }
 
 
