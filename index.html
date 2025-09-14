@@ -30,7 +30,7 @@ button{margin-top:12px;padding:10px 16px;font-size:16px;background:#0b5ed7;color
   <div class='info'>
     <div><input id='fullname' class='input' placeholder='Họ và tên (bắt buộc)'></div>
     <div><input id='unit' class='input' placeholder='Đơn vị (bắt buộc)'></div>
-    <div style='margin-left:auto'><button id='regenBtn' type='button'>Sinh 50 câu mới</button></div>
+    <div style='margin-left:auto'><button id='regenBtn' type='button'style='display:none;'>Sinh 50 câu mới</button></div>
   </div>
 <style>
   .menu {
@@ -134,6 +134,7 @@ function startExam() {
   const selected = shuffled.slice(0, 50);
   renderQuiz(selected); // ✅ hiển thị dạng radio để chọn đáp án
  document.getElementById("submitBtn").style.display = "inline-block";
+document.getElementById("regenBtn").style.display = "inline-block";
 }
 
 // Quay lại menu chính (ẩn hết nội dung)
