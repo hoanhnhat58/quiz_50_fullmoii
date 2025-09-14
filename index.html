@@ -60,16 +60,16 @@ button{margin-top:12px;padding:10px 16px;font-size:16px;background:#0b5ed7;color
 </style>
 
 <div class="menu">
-  <button onclick="startPractice()">Ôn tập toàn bộ (có đáp án)</button>
-  <button onclick="startExam()">Thi thử 50 câu (không đáp án)</button>
-  <button onclick="goHome()">⬅️ Quay lại menu chính</button>
+  <button onclick="startPractice()">Ôn tập 150 câu</button>
+  <button onclick="startExam()">Thi thử 50 câu </button>
+  <button onclick="goHome()">Quay lại menu chính</button>
 </div>
 
 <div id="quiz-container"></div>
 
   <div id='quizArea'></div>
   <div style='margin-top:12px'>
-    <button id='submitBtn' form='quizForm'>Nộp & Chấm</button>
+    <button id='submitBtn' form='quizForm' style='display:none;' >Nộp & Chấm</button>
   </div>
   <div class='footer-note'>Mỗi lần quay lại trang sẽ sinh một bộ 50 câu ngẫu nhiên khác. Giữ nguyên thứ tự đáp án A,B,C,D như file gốc.</div>
 </div>
@@ -133,6 +133,7 @@ function startExam() {
   const shuffled = [...ALL_QUESTIONS].sort(() => 0.5 - Math.random());
   const selected = shuffled.slice(0, 50);
   renderQuiz(selected); // ✅ hiển thị dạng radio để chọn đáp án
+ document.getElementById("submitBtn").style.display = "inline-block";
 }
 
 // Quay lại menu chính (ẩn hết nội dung)
