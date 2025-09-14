@@ -129,10 +129,19 @@ function startPractice() {
 
 // Thi thử: random 50 câu, không hiện đáp án
 function startExam() {
+  function startExam() {
+  // Ẩn phần ôn tập trước đó (nếu có)
   document.getElementById("quiz-container").innerHTML = ""; 
+
+  // Random 50 câu
   const shuffled = [...ALL_QUESTIONS].sort(() => 0.5 - Math.random());
   const selected = shuffled.slice(0, 50);
-  renderQuestions(selected, false);
+
+  // Hiển thị 50 câu (không có đáp án)
+	renderQuiz(selected);
+  //renderQuestions(selected, false);
+}
+
 }
 
 // Quay lại menu chính (ẩn hết nội dung)
